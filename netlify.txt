@@ -1,1 +1,3 @@
-https://laharic-todo.netlify.app/
+1. Basic Todo App with Id & Title - https://laharic-todo.netlify.app/
+
+2. With Json Server(db.json) - https://laharic-todo-jsonserver.netlify.app/
