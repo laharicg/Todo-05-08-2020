@@ -1,45 +1,69 @@
-/*import React from 'react'
-import "./bootstrap/dist/css/bootstrap.css"
-
-class TodoList extends React.Component {
-    items= ["Eat","Sleep","Code"];
-
-    render = () => {
-        return (
-            <div>
-            <ul className="list-group">
-                {this.items.map((item) => {
-                    return <li className="list-group-item">{item}</li>
-                })}
-            </ul>
-            </div>
-        );
-    
-    };
-
-}
-
-export default TodoList;
-*/
-
 import React, { Component } from "react";
 import AddTodo from './AddTodo';
+import axios from "axios";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 export default class TodoList extends Component {
 state = {
-   todos: [
-     {Id:1 ,  Title: 'Eat' },
-     {Id:2 ,  Title: 'Code' }
-   ]
-};
+   todos: [],
+}; 
+componentDidMount = () => {
+    axios
+    .get("http://localhost:3001/tasks")
+    .then((response) => {
+        this.setState({
+            todos:response.data,
+        });
+    })
+    .catch((err) => console.log(err));
 
+}; 
+/*
+addToDo = (todo) => {
+    axios
+    .post("http://localhost:3001/tasks", { Title: todo})
+    .then((response) => {
+        this.setState({
+            todos: [...this.state.todos,response.data],
+        });
+    });
+}
+*/
+addToDo =(todo) =>{
+    const id =Math.floor(Math.random()*100)+1;
+    const str ={Id:id,Title:todo}
+    this.setState({
+todos :[...this.state.todos,str]
+
+})
+axios.post('http://localhost:3001/tasks', str)
+        .then((response) => {
+          console.log(response);
+          console.log(response.data);
+        })
+
+ 
+}
+
+delete =(id) => {
+    const update =[...this.state.todos].filter(item =>{
+        return item.Id !== id;
+       
+    }) 
+
+    this.setState({todos:update})
+    axios.delete(`http://localhost:3001/tasks/${id}`)
+.then(response => {
+ console.log(response);
+ console.log(response.data);
+})
+}
+/*
 addToDo = (todo) => {
     this.setState({
         todos: [...this.state.todos, todo]
     });
 };
-
+*/
 deleteToDo = (todo) => {
     const filteredItems = this.state.todos.filter(x => x.Title !== todo.Title);
     this.setState({
