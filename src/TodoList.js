@@ -17,46 +17,34 @@ componentDidMount = () => {
     .catch((err) => console.log(err));
 
 }; 
-/*
-addToDo = (todo) => {
+
+addToDo = (newTodo) => {
+    console.log(newTodo);
     axios
-    .post("http://localhost:3001/tasks", { Title: todo})
+    .post("http://localhost:3001/tasks", newTodo)
     .then((response) => {
         this.setState({
             todos: [...this.state.todos,response.data],
         });
     });
-}
-*/
-addToDo =(todo) =>{
-    const id =Math.floor(Math.random()*100)+1;
-    const str ={Id:id,Title:todo}
-    this.setState({
-todos :[...this.state.todos,str]
+};
 
-})
-axios.post('http://localhost:3001/tasks', str)
-        .then((response) => {
-          console.log(response);
-          console.log(response.data);
-        })
-
- 
-}
-
-deleteToDo =(id) => {
-    const update =[...this.state.todos].filter(item =>{
-        return item.Id !== id;
-       
-    }) 
-
-    this.setState({todos:update})
-    axios.delete(`http://localhost:3001/tasks/${id}`)
+deleteToDo =(todo) => {
+    console.log(todo);
+    
+    axios.delete(`http://localhost:3001/tasks/${todo.id}`)
 .then(response => {
  console.log(response);
  console.log(response.data);
+ const update =this.state.todos.filter(item =>{
+    return item.id !== todo.id;
+   
+}) 
+
+this.setState({todos:update})
+
 })
-}
+}  
 /*
 addToDo = (todo) => {
     this.setState({
@@ -80,7 +68,6 @@ render() {
                 <table className="table" style={{textAlign: "center"}}>
                    <thead>
                      <tr>
-                        <th>Id</th>
                         <th>Task</th>
                         <th>Delete</th>
                      </tr>
@@ -88,8 +75,7 @@ render() {
                    <tbody>
                        {this.state.todos.map(x => {
                          return (
-                              <tr key={x.Id}>
-                              <td>{x.Id}</td>
+                              <tr key={x.Title}>
                               <td>{x.Title}</td>
                               <td>
                               <button className="btn btn-danger" onClick={() => this.deleteToDo(x)}>

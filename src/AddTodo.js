@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 export default class AddTodo extends Component {
-    state = { Id: "" ,
+    state = { 
               Title: ""
             };
-    handleIdChange = (event) => {
-        this.setState({
-            Id: event.target.value
-        });
-    }
 
     handleTitleChange = (event) => {
         this.setState({
@@ -17,12 +12,12 @@ export default class AddTodo extends Component {
     handleToDoSubmit = (event) => {
         event.preventDefault();
         this.props.onAdd({
-            Id: this.state.Id    ,        
+
             Title: this.state.Title
             
         });
         this.setState({
-            Id:"",
+
             Title: ""
             
         });
@@ -35,11 +30,7 @@ export default class AddTodo extends Component {
                     ToDo App
                 </h3>
                 <br></br>
-                <form onSubmit={this.handleToDoSubmit} >
-                <div className="form-group" >
-                        <input value={this.state.Id} onChange={this.handleIdChange} className="form-control" placeholder="Enter Id" />
-                    </div>
-                    
+                <form onSubmit={this.handleToDoSubmit} >                    
                     <div className="form-group" >
                         <input value={this.state.Title} onChange={this.handleTitleChange} className="form-control" placeholder="Enter Todo"  />
                     </div>
