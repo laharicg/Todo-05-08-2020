@@ -44,7 +44,7 @@ axios.post('http://localhost:3001/tasks', str)
  
 }
 
-delete =(id) => {
+deleteToDo =(id) => {
     const update =[...this.state.todos].filter(item =>{
         return item.Id !== id;
        
@@ -63,14 +63,14 @@ addToDo = (todo) => {
         todos: [...this.state.todos, todo]
     });
 };
-*/
+
 deleteToDo = (todo) => {
     const filteredItems = this.state.todos.filter(x => x.Title !== todo.Title);
     this.setState({
          todos: filteredItems
     });
 };
-
+*/
 render() {
     return (
          <div className="container p-3">
